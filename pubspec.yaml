@@ -1,10 +1,10 @@
 name: devappsdk
-description: A new Flutter package project.
-version: 0.0.1
-homepage:
+description: SDK para la aplicación devapp para facilitar su interacción
+version: 0.1.0
+homepage: https://github.com/user0608/devappsdk
 
 environment:
-  sdk: '>=3.1.5 <4.0.0'
+  sdk: '>=3.0.0 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
