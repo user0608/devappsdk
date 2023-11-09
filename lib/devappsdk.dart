@@ -33,6 +33,8 @@ Asegúrate de tener la aplicación correcta instalada e intenta nuevamente.''');
       final items = itemValueFromJson(value);
       final index = items.indexWhere((element) => element.name == key);
       if (index == -1) return null;
+      final enabled = items[index].state ?? false;
+      if (!enabled) return null;
       return items[index].name;
     } catch (err) {
       throw Exception("La lectura de la variable $key fallo");
