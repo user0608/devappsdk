@@ -35,7 +35,7 @@ Asegúrate de tener la aplicación correcta instalada e intenta nuevamente.''');
       if (index == -1) return null;
       final enabled = items[index].state ?? false;
       if (!enabled) return null;
-      return items[index].name;
+      return items[index].value;
     } catch (err) {
       throw Exception("La lectura de la variable $key fallo");
     }
