@@ -11,7 +11,7 @@ class DevAppManager {
   factory DevAppManager() => _singleton;
   DevAppManager._internal();
 
-  Future<void> init() async {
+  Future<void> _init() async {
     try {
       await SharedPreferencesContentProvider.init(
         providerAuthority: devappProviderAuthority,
@@ -23,8 +23,9 @@ Asegúrate de tener la aplicación correcta instalada e intenta nuevamente.''');
     }
   }
 
-  Future<String?> getValue(String key) async {
-    if (!_wastInited) await init();
+  // readValue puede lanzar exceptions
+  Future<String?> readValue(String key) async {
+    if (!_wastInited) await _init();
     try {
       final value = await SharedPreferencesContentProvider.get("list_values");
       if (value is! String) return null;
