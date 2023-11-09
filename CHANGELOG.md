@@ -6,3 +6,6 @@
 
 * Fix: fix status
 
+
+## 0.1.2
+* Fix: readValue value
