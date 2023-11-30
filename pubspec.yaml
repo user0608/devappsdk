@@ -1,15 +1,16 @@
 name: devappsdk
 description: SDK para la aplicación devapp para facilitar su interacción
-version: 0.1.2
+version: 0.2.0
 homepage: https://github.com/user0608/devappsdk
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.1.2
   shared_preferences_content_provider: ^0.0.5
 
 dev_dependencies:
