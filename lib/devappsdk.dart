@@ -3,6 +3,7 @@ library devappsdk;
 import 'dart:io';
 
 import 'package:devappsdk/item_value.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences_content_provider/shared_preferences_content_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -59,8 +60,8 @@ class DevAppManager {
       await reader.init();
       _wastInited = true;
     } catch (err) {
-      throw Exception('''Proveedor de variables de entorno no encontrado. 
-Asegúrate de tener la aplicación correcta instalada e intenta nuevamente.''');
+      if (kDebugMode) print("DevAppManager _init Error: ${err.toString()}");
+      throw Exception('''Proveedor de variables de entorno no encontrado.''');
     }
   }
 

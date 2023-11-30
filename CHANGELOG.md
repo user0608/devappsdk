@@ -13,3 +13,7 @@
 ## 0.2.0
 
 - Desktop support
+
+## 0.2.1
+
+- Fix message
