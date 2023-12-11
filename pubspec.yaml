@@ -1,6 +1,6 @@
 name: devappsdk
 description: SDK para la aplicación devapp para facilitar su interacción
-version: 0.2.1
+version: 0.2.2
 homepage: https://github.com/user0608/devappsdk
 
 environment:

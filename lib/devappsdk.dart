@@ -58,6 +58,7 @@ class DevAppManager {
     reader = Platform.isAndroid ? _MovilePrivider() : _LocalHttpPrivider();
     try {
       await reader.init();
+      await Future.delayed(const Duration(seconds: 1));
       _wastInited = true;
     } catch (err) {
       if (kDebugMode) print("DevAppManager _init Error: ${err.toString()}");

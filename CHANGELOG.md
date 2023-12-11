@@ -17,3 +17,7 @@
 ## 0.2.1
 
 - Fix message
+
+## 0.2.2
+
+- add wait time
