@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class SharedPreferencesContentProviderPrivate {
@@ -58,20 +57,8 @@ class SharedPreferencesContentProviderPrivate {
   ///
   /// If the persistent storage does not contains [key], then [null] will be returned
   static Future<dynamic> get(String key) async {
-    var attents = 10;
-    var counter = 0;
-    while (counter < attents) {
-      try {
-        final response = await _channel.invokeMethod('get', {'key': key});
-        return response;
-      } catch (e) {
-        if (kDebugMode) print(e.toString());
-        await Future.delayed(const Duration(seconds: 1));
-      } finally {
-        counter++;
-      }
-    }
-    throw "Error, el proveedor de contenido no esta disponible";
+    final response = await _channel.invokeMethod('get', {'key': key});
+    return response;
   }
 
   /// Reads all key-value pairs from persistent storage under the specified content provider.

@@ -25,3 +25,7 @@
 ## 0.3.0
 
 - custom provider static class
+
+## 0.3.1
+
+- fix multiples requests
