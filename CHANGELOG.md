@@ -21,3 +21,7 @@
 ## 0.2.2
 
 - add wait time
+
+## 0.3.0
+
+- custom provider static class

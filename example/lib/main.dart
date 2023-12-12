@@ -29,8 +29,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String input = "";
+  String input = "preferencias.server";
   String text = "";
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final value = await DevAppManager().readValue("preferencias.server");
+      print(value);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +51,7 @@ class _HomeState extends State<Home> {
             SizedBox(
               width: 200,
               child: TextFormField(
+                initialValue: input,
                 decoration: const InputDecoration(label: Text("Name")),
                 onChanged: (value) => input = value,
               ),

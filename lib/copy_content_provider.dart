@@ -1,0 +1,99 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+
+class SharedPreferencesContentProviderPrivate {
+  static const MethodChannel _channel = MethodChannel('shared_preferences_content_provider');
+
+  static const _eventChannel = EventChannel('shared_preferences_content_provider_event');
+
+  /// Listen value change
+  /// If provide [key], only receive notify when value of [key] change
+  /// If [key] is null, all value change will notify
+  ///
+  static StreamSubscription<dynamic> listen(void Function(dynamic event)? onData,
+      {String? key, Function? onError, void Function()? onDone, bool? cancelOnError}) {
+    return _eventChannel
+        .receiveBroadcastStream(key)
+        .map((event) => event)
+        .listen(onData, onError: onError, cancelOnError: cancelOnError, onDone: onDone);
+  }
+
+  /// Set Content provider URI and Authority
+  ///
+  static Future<dynamic> init({String? providerAuthority}) {
+    return _channel.invokeMethod('init', {'authority': providerAuthority});
+  }
+
+  /// Saves a boolean [value] to persistent storage under the specified content provider.
+  ///
+  static Future<dynamic> putBool(String key, bool value) {
+    return _setValue('Bool', key, value);
+  }
+
+  /// Saves an integer [value] to persistent storage under the specified content provider.
+  ///
+  /// If [value] is null, this is equivalent to calling [remove()] on the [key].
+  static Future<dynamic> putInt(String key, int? value) {
+    return _setValue('Int', key, value);
+  }
+
+  /// Saves a double [value] to persistent storage under the specified content provider.
+  ///
+  /// If [value] is null, this is equivalent to calling [remove()] on the [key].
+  static Future<dynamic> putDouble(String key, double? value) {
+    return _setValue('Double', key, value);
+  }
+
+  /// Saves a string [value] to persistent storage under the specified content provider.
+  ///
+  /// If [value] is null, this is equivalent to calling [remove()] on the [key].
+  static Future<dynamic> putString(String key, String? value) {
+    return _setValue('String', key, value);
+  }
+
+  /// Reads a value of any type from persistent storage under the specified content provider.
+  ///
+  /// If the persistent storage does not contains [key], then [null] will be returned
+  static Future<dynamic> get(String key) async {
+    var attents = 10;
+    var counter = 0;
+    while (counter < attents) {
+      try {
+        final response = await _channel.invokeMethod('get', {'key': key});
+        return response;
+      } catch (e) {
+        if (kDebugMode) print(e.toString());
+        await Future.delayed(const Duration(seconds: 1));
+      } finally {
+        counter++;
+      }
+    }
+    throw "Error, el proveedor de contenido no esta disponible";
+  }
+
+  /// Reads all key-value pairs from persistent storage under the specified content provider.
+  static Future<Map<String, dynamic>> getAll() async {
+    final allPrefs = await _channel.invokeMethod('getAll');
+    return jsonDecode(allPrefs);
+  }
+
+  /// Removes an entry from persistent storage under the specified specified content provider.
+  static Future<dynamic> remove(String key) {
+    return _channel.invokeMethod('remove', {'key': key});
+  }
+
+  /// Removes all entry from persistent storage under the specified specified content provider.
+  static Future<dynamic> removeAll() {
+    return _channel.invokeMethod('removeAll');
+  }
+
+  static Future<dynamic> _setValue(String valueType, String key, Object? value) {
+    return _channel.invokeMethod('put$valueType', {
+      'key': key,
+      'value': value,
+    });
+  }
+}

@@ -55,7 +55,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.1.2"
+    version: "0.2.2"
   fake_async:
     dependency: transitive
     description:
@@ -102,10 +102,10 @@ packages:
     dependency: "direct main"
     description:
       name: kdialogs
-      sha256: "8bdb2d784eae8e3951f04185c1e2b99f4c6af5fb7a5eef80b674dfcf7fb0f026"
+      sha256: f1760c789e41767d6300d65943b564b56fbbda0f43e061329d2cdd3f235d2a9e
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.1"
+    version: "0.3.0"
   lints:
     dependency: transitive
     description:
@@ -150,10 +150,10 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
-      sha256: da3fdfeccc4d4ff2da8f8c556704c08f912542c5fb3cf2233ed75372384a034d
+      sha256: f4f88d4a900933e7267e2b353594774fc0d07fb072b47eedcd5b54e1ea3269f8
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.7"
   shared_preferences_content_provider:
     dependency: transitive
     description:
