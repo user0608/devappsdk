@@ -47,20 +47,16 @@ class _LocalHttpPrivider implements ProviderReader {
 }
 
 class DevAppManager {
-  bool _wastInited = false;
-
   static final DevAppManager _singleton = DevAppManager._internal();
   factory DevAppManager() => _singleton;
   late ProviderReader reader;
   DevAppManager._internal();
 
   Future<void> _init() async {
-    if (_wastInited) return;
     reader = Platform.isAndroid ? _MovilePrivider() : _LocalHttpPrivider();
     try {
       await reader.init();
       await Future.delayed(const Duration(seconds: 1));
-      _wastInited = true;
     } catch (err) {
       if (kDebugMode) print("DevAppManager _init Error: ${err.toString()}");
       throw Exception('''Proveedor de variables de entorno no encontrado.''');

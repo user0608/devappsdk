@@ -33,3 +33,7 @@
 ## 0.3.2
 
 - allways init autority
+
+## 0.3.3
+
+- fix init
