@@ -1,11 +1,12 @@
 library devappsdk;
 
 import 'dart:io';
-import 'package:devappsdk/copy_content_provider.dart';
+
 import 'package:devappsdk/item_value.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences_content_provider/shared_preferences_content_provider.dart';
 
 abstract class ProviderReader {
   Future<void> init();
@@ -16,7 +17,7 @@ class _MovilePrivider implements ProviderReader {
   static const devappProviderAuthority = "com.ksaucedo.devapp";
   @override
   Future<List<ItemValue>> getValues() async {
-    final value = await SharedPreferencesContentProviderPrivate.get("list_values");
+    final value = await SharedPreferencesContentProvider.get("list_values");
     if (value is! String) return [];
     if (value == "") return [];
     final items = itemValueFromJson(value);
@@ -25,7 +26,7 @@ class _MovilePrivider implements ProviderReader {
 
   @override
   Future<void> init() async {
-    await SharedPreferencesContentProviderPrivate.init(
+    await SharedPreferencesContentProvider.init(
       providerAuthority: devappProviderAuthority,
     );
   }
@@ -67,7 +68,7 @@ class DevAppManager {
   }
 
   Future<List<ItemValue>> readAll() async {
-    if (!_wastInited) await _init();
+    await _init();
     try {
       final items = await reader.getValues();
       return items;
@@ -78,7 +79,7 @@ class DevAppManager {
 
   // readValue puede lanzar exceptions
   Future<String?> readValue(String key) async {
-    if (!_wastInited) await _init();
+    await _init();
     try {
       final items = await reader.getValues();
       final index = items.indexWhere((element) => element.name == key);

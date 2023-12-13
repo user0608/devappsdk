@@ -29,3 +29,7 @@
 ## 0.3.1
 
 - fix multiples requests
+
+## 0.3.2
+
+- allways init autority
